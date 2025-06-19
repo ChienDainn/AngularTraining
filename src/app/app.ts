@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+
+import { ControlFlow } from './Components/control-flow/control-flow';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [ControlFlow],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
