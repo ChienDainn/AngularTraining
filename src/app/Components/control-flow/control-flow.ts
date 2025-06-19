@@ -4,7 +4,7 @@ import { SignalEx } from '../signal-ex/signal-ex';
 @Component({
   selector: 'app-control-flow',
   standalone: true,
-  imports: [SignalEx],
+  imports: [],
   templateUrl: './control-flow.html',
 })
 export class ControlFlowComponent {

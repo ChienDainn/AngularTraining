@@ -1,146 +1,169 @@
-<h1>Angular 20 Control Flow</h1>
 
-<!-- 1. @if Block -->
-<section>
-  <h2>1. if </h2>
-  <button (click)="showContent.set(!showContent())">
-    {{ showContent() ? 'Hide' : 'Shows' }} Content
-  </button>
 
-  @if (showContent()) {
-    <p>Nội dung đang hiển thị</p>
-  } @if (!showContent()) {
-    <p>Nội dung đã bị ẩn</p>
-  }
-</section>
+<div class="container mt-4">
+  <h1 class="text-center mb-4">Angular 20 Control Flow</h1>
 
-<!-- 2. @switch Block -->
-<section>
-  <h2>2. switch Case</h2>
-  <select [value]="grade()" (change)="grade.set($any($event.target).value)">
-    <option value="A">A</option>
-    <option value="B">B</option>
-    <option value="C">C</option>
-    <option value="D">D</option>
-  </select>
+  <!-- 1. @if Block -->
+  <section class="card mb-4">
+    <div class="card-body">
+      <h2 class="card-title">1. if</h2>
+      <button class="btn btn-primary" (click)="showContent.set(!showContent())">
+        {{ showContent() ? 'Hide' : 'Show' }} Content
+      </button>
 
-  @switch (grade()) {
-    @case ('A') {
-      <p class="excellent">Xuất sắc!</p>
-    }
-    @case ('B') {
-      <p class="good">Tốt!</p>
-    }
-    @case ('C') {
-      <p class="average">Trung bình</p>
-    }
-    @default {
-      <p class="poor">Cần cải thiện</p>
-    }
-  }
-</section>
-
-<!-- 3. @for Block -->
-<section>
-  <h2>3. for Loop</h2>
-  <ul>
-    @for (item of items(); track item) {
-      <li>{{ $index + 1 }}. {{ item }}</li>
-    } @empty {
-      <li>Không có mục nào</li>
-    }
-  </ul>
-</section>
-
-<!-- 4. @defer Block -->
-<!-- 6. Advanced Conditions -->
-<section>
-  <h2>6. Điều kiện nâng cao</h2>
-  <input type="number" [value]="value()" (input)="value.set($any($event.target).valueAsNumber)">
-
-  @if (value() > 10) {
-    <p>Lớn hơn 10</p>
-  } @else if (value() > 5) {
-    <p>Lớn hơn 5 nhưng nhỏ hơn hoặc bằng 10</p>
-  } @else {
-    <p>5 hoặc nhỏ hơn</p>
-  }
-</section>
-
-<!-- 4. @defer Block -->
-<section>
-  <h2>4. defer Loading</h2>
-  @defer (on viewport) {
-    <app-signal-ex />
-  } @placeholder (minimum 500ms) {
-    <p>Đang tải component nặng...</p>
-  } @loading {
-    <p>Vui lòng chờ...</p>
-  } @error {
-    <p class="error">Lỗi khi tải component</p>
-  }
-  <section>
-  <h2>5. Xử lý dữ liệu bất đồng bộ</h2>
-  @if (isLoading()) {
-    <p>Đang tải dữ liệu...</p>
-  } @else {
-    <div>
-      <p>Tên: {{ user().name }}</p>
-      <p>Tuổi: {{ user().age }}</p>
+      @if (showContent()) {
+        <p class="mt-3 alert alert-success">Nội dung đang hiển thị</p>
+      } @if (!showContent()) {
+        <p class="mt-3 alert alert-warning">Nội dung đã bị ẩn</p>
+      }
     </div>
-  }
+  </section>
 
-  <button (click)="isLoading.set(!isLoading())">
-    {{ isLoading() ? 'Tải xong' : 'Bắt đầu tải' }}
-  </button>
-</section>
-</section>
-<section>
-  <h2>7. Điều hướng Tab</h2>
-  <div class="tabs">
-    <button (click)="currentTab.set('home')" [class.active]="currentTab() === 'home'">Home</button>
-    <button (click)="currentTab.set('profile')" [class.active]="currentTab() === 'profile'">Profile</button>
-    <button (click)="currentTab.set('settings')" [class.active]="currentTab() === 'settings'">Settings</button>
-  </div>
+  <!-- 2. @switch Block -->
+  <section class="card mb-4">
+    <div class="card-body">
+      <h2 class="card-title">2. switch Case</h2>
+      <select class="form-select mb-3" [value]="grade()" (change)="grade.set($any($event.target).value)">
+        <option value="A">A</option>
+        <option value="B">B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+      </select>
 
-  <div class="tab-content">
-    @switch (currentTab()) {
-      @case ('home') {
-        <p>Nội dung trang chủ</p>
+      @switch (grade()) {
+        @case ('A') {
+          <p class="alert alert-success">Xuất sắc!</p>
+        }
+        @case ('B') {
+          <p class="alert alert-info">Tốt!</p>
+        }
+        @case ('C') {
+          <p class="alert alert-warning">Trung bình</p>
+        }
+        @default {
+          <p class="alert alert-danger">Cần cải thiện</p>
+        }
       }
-      @case ('profile') {
-        <p>Thông tin cá nhân</p>
-      }
-      @case ('settings') {
-        <p>Cài đặt hệ thống</p>
-      }
-    }
-  </div>
-</section>
+    </div>
+  </section>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th>STT</th>
-      <th>Tên</th>
-      <th>Thành phố</th>
-      <th>Trạng thái</th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (item of studentList; track $index) {
-      <tr>
-        <td>{{ $index + 1 }}</td>
-        <td>{{ item.name }}</td>
-        <td>{{ item.city }}</td>
-        <td>
-          @if (item.isActive) {
-            <span class="badge bg-success">Active</span>
-          } @else {
-            <span class="badge bg-danger">De-Active</span>
+  <!-- 3. @for Block -->
+  <section class="card mb-4">
+    <div class="card-body">
+      <h2 class="card-title">3. for Loop</h2>
+      <ul class="list-group">
+        @for (item of items(); track item) {
+          <li class="list-group-item">{{ $index + 1 }}. {{ item }}</li>
+        } @empty {
+          <li class="list-group-item">Không có mục nào</li>
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- 6. Advanced Conditions -->
+  <section class="card mb-4">
+    <div class="card-body">
+      <h2 class="card-title">6. Điều kiện nâng cao</h2>
+      <input type="number" class="form-control mb-3" [value]="value()" (input)="value.set($any($event.target).valueAsNumber)">
+
+      @if (value() > 10) {
+        <p class="text-success">Lớn hơn 10</p>
+      } @else if (value() > 5) {
+        <p class="text-primary">Lớn hơn 5 nhưng nhỏ hơn hoặc bằng 10</p>
+      } @else {
+        <p class="text-danger">5 hoặc nhỏ hơn</p>
+      }
+    </div>
+  </section>
+
+  <!-- 5. Async Data Handling -->
+  <section class="card mb-4">
+    <div class="card-body">
+      <h2 class="card-title">5. Xử lý dữ liệu bất đồng bộ</h2>
+      @if (isLoading()) {
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p>Đang tải dữ liệu...</p>
+      } @else {
+        <div class="alert alert-info">
+          <p><strong>Tên:</strong> {{ user().name }}</p>
+          <p><strong>Tuổi:</strong> {{ user().age }}</p>
+        </div>
+      }
+
+      <button class="btn btn-secondary" (click)="isLoading.set(!isLoading())">
+        {{ isLoading() ? 'Tải xong' : 'Bắt đầu tải' }}
+      </button>
+    </div>
+  </section>
+
+  <!-- 7. Tab Navigation -->
+  <section class="card mb-4">
+    <div class="card-body">
+      <h2 class="card-title">7. Điều hướng Tab</h2>
+      <ul class="nav nav-tabs mb-3">
+        <li class="nav-item">
+          <button class="nav-link" [class.active]="currentTab() === 'home'" 
+                  (click)="currentTab.set('home')">Home</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" [class.active]="currentTab() === 'profile'" 
+                  (click)="currentTab.set('profile')">Profile</button>
+        </li>
+        <li class="nav-item">
+          <button class="nav-link" [class.active]="currentTab() === 'settings'" 
+                  (click)="currentTab.set('settings')">Settings</button>
+        </li>
+      </ul>
+
+      <div class="tab-content p-3 border border-top-0 rounded-bottom">
+        @switch (currentTab()) {
+          @case ('home') {
+            <p class="text-primary">Nội dung trang chủ</p>
           }
-        </td>
-      </tr>
-    }
-  </tbody>
-</table>
+          @case ('profile') {
+            <p class="text-success">Thông tin cá nhân</p>
+          }
+          @case ('settings') {
+            <p class="text-info">Cài đặt hệ thống</p>
+          }
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Student Table -->
+  <section class="card">
+    <div class="card-body">
+      <h2 class="card-title">Danh sách sinh viên</h2>
+      <table class="table table-striped table-hover">
+        <thead class="table-dark">
+          <tr>
+            <th>STT</th>
+            <th>Tên</th>
+            <th>Thành phố</th>
+            <th>Trạng thái</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of studentList; track $index) {
+            <tr>
+              <td>{{ $index + 1 }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.city }}</td>
+              <td>
+                @if (item.isActive) {
+                  <span class="badge bg-success">Active</span>
+                } @else {
+                  <span class="badge bg-danger">Inactive</span>
+                }
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
