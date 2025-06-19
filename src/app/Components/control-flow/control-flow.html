@@ -1,1 +1,146 @@
-<p>control-flow works!</p>
+<h1>Angular 20 Control Flow</h1>
+
+<!-- 1. @if Block -->
+<section>
+  <h2>1. if </h2>
+  <button (click)="showContent.set(!showContent())">
+    {{ showContent() ? 'Hide' : 'Shows' }} Content
+  </button>
+
+  @if (showContent()) {
+    <p>Nội dung đang hiển thị</p>
+  } @if (!showContent()) {
+    <p>Nội dung đã bị ẩn</p>
+  }
+</section>
+
+<!-- 2. @switch Block -->
+<section>
+  <h2>2. switch Case</h2>
+  <select [value]="grade()" (change)="grade.set($any($event.target).value)">
+    <option value="A">A</option>
+    <option value="B">B</option>
+    <option value="C">C</option>
+    <option value="D">D</option>
+  </select>
+
+  @switch (grade()) {
+    @case ('A') {
+      <p class="excellent">Xuất sắc!</p>
+    }
+    @case ('B') {
+      <p class="good">Tốt!</p>
+    }
+    @case ('C') {
+      <p class="average">Trung bình</p>
+    }
+    @default {
+      <p class="poor">Cần cải thiện</p>
+    }
+  }
+</section>
+
+<!-- 3. @for Block -->
+<section>
+  <h2>3. for Loop</h2>
+  <ul>
+    @for (item of items(); track item) {
+      <li>{{ $index + 1 }}. {{ item }}</li>
+    } @empty {
+      <li>Không có mục nào</li>
+    }
+  </ul>
+</section>
+
+<!-- 4. @defer Block -->
+<!-- 6. Advanced Conditions -->
+<section>
+  <h2>6. Điều kiện nâng cao</h2>
+  <input type="number" [value]="value()" (input)="value.set($any($event.target).valueAsNumber)">
+
+  @if (value() > 10) {
+    <p>Lớn hơn 10</p>
+  } @else if (value() > 5) {
+    <p>Lớn hơn 5 nhưng nhỏ hơn hoặc bằng 10</p>
+  } @else {
+    <p>5 hoặc nhỏ hơn</p>
+  }
+</section>
+
+<!-- 4. @defer Block -->
+<section>
+  <h2>4. defer Loading</h2>
+  @defer (on viewport) {
+    <app-signal-ex />
+  } @placeholder (minimum 500ms) {
+    <p>Đang tải component nặng...</p>
+  } @loading {
+    <p>Vui lòng chờ...</p>
+  } @error {
+    <p class="error">Lỗi khi tải component</p>
+  }
+  <section>
+  <h2>5. Xử lý dữ liệu bất đồng bộ</h2>
+  @if (isLoading()) {
+    <p>Đang tải dữ liệu...</p>
+  } @else {
+    <div>
+      <p>Tên: {{ user().name }}</p>
+      <p>Tuổi: {{ user().age }}</p>
+    </div>
+  }
+
+  <button (click)="isLoading.set(!isLoading())">
+    {{ isLoading() ? 'Tải xong' : 'Bắt đầu tải' }}
+  </button>
+</section>
+</section>
+<section>
+  <h2>7. Điều hướng Tab</h2>
+  <div class="tabs">
+    <button (click)="currentTab.set('home')" [class.active]="currentTab() === 'home'">Home</button>
+    <button (click)="currentTab.set('profile')" [class.active]="currentTab() === 'profile'">Profile</button>
+    <button (click)="currentTab.set('settings')" [class.active]="currentTab() === 'settings'">Settings</button>
+  </div>
+
+  <div class="tab-content">
+    @switch (currentTab()) {
+      @case ('home') {
+        <p>Nội dung trang chủ</p>
+      }
+      @case ('profile') {
+        <p>Thông tin cá nhân</p>
+      }
+      @case ('settings') {
+        <p>Cài đặt hệ thống</p>
+      }
+    }
+  </div>
+</section>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>STT</th>
+      <th>Tên</th>
+      <th>Thành phố</th>
+      <th>Trạng thái</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (item of studentList; track $index) {
+      <tr>
+        <td>{{ $index + 1 }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.city }}</td>
+        <td>
+          @if (item.isActive) {
+            <span class="badge bg-success">Active</span>
+          } @else {
+            <span class="badge bg-danger">De-Active</span>
+          }
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>

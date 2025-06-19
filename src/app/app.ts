@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 
-import { ControlFlow } from './Components/control-flow/control-flow';
+import {ControlFlowComponent} from './Components/control-flow/control-flow';
 
 @Component({
   selector: 'app-root',
-  imports: [ControlFlow],
+  imports: [ControlFlowComponent],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
