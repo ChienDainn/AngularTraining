@@ -1,0 +1,97 @@
+<section>
+  <h2>Structural Directives</h2>
+
+  <!-- *ngIf -->
+  <button (click)="isVisible = !isVisible">Toggle Hiển thị</button>
+  <p *ngIf="isVisible">Đây là đoạn văn sẽ bị ẩn/hiện.</p>
+
+  <!-- *ngFor -->
+  <h3>Danh sách màu sắc:</h3>
+  <ul>
+    <li *ngFor="let color of colors; let i = index">
+      {{ i + 1 }}. {{ color }}
+    </li>
+  </ul>
+
+  <!-- *ngSwitch -->
+  <h3>Chọn màu:</h3>
+  <select [(ngModel)]="selectedColor">
+    <option value="">-- chọn màu --</option>
+    <option value="red">Đỏ</option>
+    <option value="green">Xanh Lá</option>
+    <option value="blue">Xanh Dương</option>
+  </select>
+
+  <div [ngSwitch]="selectedColor">
+    <p *ngSwitchCase="'red'">🔥 Màu đỏ</p>
+    <p *ngSwitchCase="'green'">🌱 Màu xanh lá</p>
+    <p *ngSwitchCase="'blue'">💧 Màu xanh dương</p>
+    <p *ngSwitchDefault>❓ Chưa chọn màu</p>
+  </div>
+</section>
+
+<hr>
+
+<section>
+  <h2>Attribute Directives</h2>
+
+  <!-- ngClass -->
+  <p [ngClass]="{ 'highlight': isSpecial }">
+    Văn bản này có class "highlight" nếu isSpecial = true
+  </p>
+
+  <!-- ngStyle -->
+  <p [ngStyle]="{ color: selectedColor }">
+    Văn bản này đổi màu theo màu đã chọn
+  </p>
+
+  <!-- ngModel -->
+  <input [(ngModel)]="inputText" placeholder="Nhập gì đó..." />
+  <p>Bạn vừa nhập: {{ inputText }}</p>
+</section>
+
+<div class="row">
+  <div class="col-3">
+    <div class="p-3" [ngClass]="div1ClassName()">
+      Div 1 - {{ div1ClassName() }}
+    </div>
+  </div>
+
+  <div class="col-3">
+    <div class="p-3" [ngStyle]="{ 'background-color': isDiv2Green == true ? 'blue' : 'red' }">
+      Div 2
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-3">
+    <button class="btn btn-success" (click)="setBgClass('bg-success')">Green</button>
+    <button class="btn btn-danger" (click)="setBgClass('bg-danger')">Red</button>
+  </div>
+
+  <div class="col-3">
+    <button class="btn btn-success" (click)="toggleDive2Color()">Toggle BG Color</button>
+  </div>
+</div>
+
+<hr>
+<h3>🌟 Demo Angular Pipes</h3>
+
+<p><b>1. Uppercase:</b> {{ inputText | uppercase }}</p>
+<p><b>2. Lowercase:</b> {{ inputText | lowercase }}</p>
+<p><b>3. Title Case:</b> {{ inputText | titlecase }}</p>
+<p><b>4. Slice (0-4):</b> {{ inputText | slice:0:4 }}</p>
+
+<p><b>5. Date:</b> {{ today | date:'fullDate' }}</p>
+<p><b>6. Time:</b> {{ today | date:'shortTime' }}</p>
+
+<p><b>7. Number:</b> {{ 1234567.89 | number }}</p>
+<p><b>8. Currency (VND):</b> {{ 1000000 | currency:'VND':'symbol' }}</p>
+
+<p><b>9. JSON Pipe:</b></p>
+<pre>{{ sampleObject | json }}</pre>
+
+<hr>
+<label>Nhập tên: </label>
+<input type="text" [(ngModel)]="inputText" class="form-control" placeholder="Gõ vào đây...">
